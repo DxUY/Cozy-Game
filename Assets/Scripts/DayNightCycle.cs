@@ -13,7 +13,7 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] float dayLength = 300f; // 10 minutes per day
     private float timeOfDay;
 
-    [SerializeField] int _tick =1;
+    [SerializeField] int _tick =300;
     [SerializeField]  private int _second;
     [SerializeField]  private int _minute;
     [SerializeField] private int _hour;
@@ -23,7 +23,8 @@ public class DayNightCycle : MonoBehaviour
 
     [SerializeField] private float _realTime;
     [SerializeField] private float _ratio;
-    [SerializeField] private float _targetSeconds;
+    [SerializeField] private float _timer=0f;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,42 +33,28 @@ public class DayNightCycle : MonoBehaviour
         updateLighting(0);
         _realTime = Time.deltaTime;
         _ratio = _realTime / 1f;
-        _targetSeconds = Mathf.FloorToInt(288 * _ratio);
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeOfDay += Time.deltaTime / dayLength; // Increment time
+
+        // Accumulate real-world time
+        _timer += Time.deltaTime;
+
+        // Update in-game time every second
+        if (_timer >= 1f)
+        {
+            
+            clock();
+            _timer -= 1f; // Reset timer for next second
+        }
+
+        timeOfDay += Time.deltaTime / _tick; // Increment time
         timeOfDay %= 1; // Keep ratio between 0 and 1
         updateLighting(timeOfDay);
         if (!_isSimulating) return;
 
-        // Simulate 288 seconds in 1 real-world second
-        _elapsedTime += Time.deltaTime;
-        float ratio = _elapsedTime / 1f; // 1 second duration
-        int targetSeconds = Mathf.FloorToInt(288 * ratio); // Total seconds to reach
-
-        // Reset clock to 00:00:00 and advance to targetSeconds
-        _second = 0;
-        _minute = 0;
-        _hour = 0;
-
-        // Advance clock to targetSeconds
-        while (targetSeconds > 0)
-        {
-            clock();
-            targetSeconds -= _tick;
-        }
-
-        // Stop simulation at 00:04:48 (288 seconds)
-        if (_elapsedTime >= 1f)
-        {
-            _isSimulating = false;
-            _second = 48; // Force exact end time (00:04:48)
-            _minute = 4;
-            _hour = 0;
-        }
     }
 
     public void updateLighting(float ratio)
@@ -84,8 +71,11 @@ public class DayNightCycle : MonoBehaviour
         _second += _tick;
         if (_second > 59)
         {
+            _minute += (_second / 60) % 60;
+            Debug.Log(_second) ;
+            Debug.Log((_second / 60) % 60);
             _second = 0;
-            _minute +=1;
+            
         }
         if (_minute > 59)
         {
