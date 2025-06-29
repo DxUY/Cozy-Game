@@ -15,15 +15,8 @@
         [SerializeField]  public Inventory _inventory;
         public Inventory inventory
         {
-            get
-            {
-                return _inventory;
-            }
-
-            set
-            {
-                _inventory = value;
-            }
+            get { return _inventory; }
+            set { _inventory = value; }
         }
 
     private void Awake()
