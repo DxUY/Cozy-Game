@@ -96,7 +96,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -148,9 +148,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_0
       rect:
         serializedVersion: 2
-        x: 16
+        x: 17
         y: 160
-        width: 16
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -170,9 +170,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 65
         y: 160
-        width: 16
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -192,9 +192,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_2
       rect:
         serializedVersion: 2
-        x: 112
+        x: 113
         y: 160
-        width: 16
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -214,9 +214,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_3
       rect:
         serializedVersion: 2
-        x: 160
+        x: 161
         y: 160
-        width: 16
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -236,9 +236,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_4
       rect:
         serializedVersion: 2
-        x: 16
+        x: 17
         y: 112
-        width: 16
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -258,9 +258,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_5
       rect:
         serializedVersion: 2
-        x: 64
+        x: 65
         y: 112
-        width: 16
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -280,9 +280,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_6
       rect:
         serializedVersion: 2
-        x: 112
+        x: 113
         y: 112
-        width: 16
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -302,9 +302,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_7
       rect:
         serializedVersion: 2
-        x: 160
+        x: 161
         y: 112
-        width: 16
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -324,9 +324,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_8
       rect:
         serializedVersion: 2
-        x: 16
+        x: 19
         y: 64
-        width: 16
+        width: 10
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -346,9 +346,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_9
       rect:
         serializedVersion: 2
-        x: 64
+        x: 67
         y: 64
-        width: 16
+        width: 10
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -368,9 +368,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_10
       rect:
         serializedVersion: 2
-        x: 112
+        x: 115
         y: 64
-        width: 16
+        width: 10
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -390,9 +390,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_11
       rect:
         serializedVersion: 2
-        x: 160
+        x: 163
         y: 64
-        width: 16
+        width: 10
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -412,9 +412,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_12
       rect:
         serializedVersion: 2
-        x: 16
+        x: 19
         y: 16
-        width: 16
+        width: 10
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -434,9 +434,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_13
       rect:
         serializedVersion: 2
-        x: 64
+        x: 67
         y: 16
-        width: 16
+        width: 10
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -456,9 +456,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_14
       rect:
         serializedVersion: 2
-        x: 112
+        x: 115
         y: 16
-        width: 16
+        width: 10
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -478,9 +478,9 @@ TextureImporter:
       name: Basic Charakter Spritesheet_15
       rect:
         serializedVersion: 2
-        x: 160
+        x: 163
         y: 16
-        width: 16
+        width: 10
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -500,7 +500,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4caa5d587e5ddc542a63c063b587ac12
+    spriteID: d0b8e473f6d48ab419f67c25ea598a61
     internalID: 0
     vertices: []
     indices: 
@@ -508,7 +508,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Basic Charakter Spritesheet_0: 7595986285605212588
       Basic Charakter Spritesheet_1: 533925764876870624

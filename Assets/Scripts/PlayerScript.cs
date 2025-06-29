@@ -9,7 +9,7 @@
         private float _moveX;
         private float _moveY;
         [SerializeField] private float _speedLimiter = 0.2f;
-        private Animator animation;
+        private Animator animator;
         private bool _isFacingLeft = true;
 
         [SerializeField]  public Inventory _inventory;
@@ -28,7 +28,7 @@
     void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-            animation = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
         }
 
         void Update()
@@ -36,20 +36,9 @@
             // Remove 'float' keyword here since variables are already declared as class members
             _moveX = Input.GetAxisRaw("Horizontal");
             _moveY = Input.GetAxisRaw("Vertical");
-
+            animateMovement();
             // Fix this line - was using _moveY twice instead of _moveX and _moveY
             _moveVelocity = new Vector2(_moveX, _moveY) * moveSpeed;
-
-            animation.SetFloat("Speed", Mathf.Abs(_moveX) + Mathf.Abs(_moveY));
-
-            if(_moveX<0 && !_isFacingLeft)
-            {
-                Flip();
-            }
-            else if(_moveX > 0 && _isFacingLeft)
-            {   
-                Flip();
-            }
 
 
 
@@ -97,11 +86,20 @@
             }
         }
 
-        private void Flip()
+    private void animateMovement()
+    {
+        if (animator != null)
         {
-            _isFacingLeft= !_isFacingLeft;
-            Vector2 currentScale = gameObject.transform.localScale;
-            currentScale.x *= -1;
-            gameObject.transform.localScale = currentScale;
+            if (_moveX != 0 || _moveY != 0)
+            {
+                animator.SetBool("isMoving", true);
+                animator.SetFloat("horizontal", _moveX);
+                animator.SetFloat("vertical", _moveY);
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
+            }
         }
     }
+}
