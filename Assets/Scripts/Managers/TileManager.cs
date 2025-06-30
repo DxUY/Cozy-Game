@@ -7,16 +7,40 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tilemap _groundTileMap;
     [SerializeField] private Tile _plowedTile;
 
+    // void Awake()
+    // {
+    //     GameObject groundObject = GameObject.FindWithTag("Ground");
+    //     if (groundObject != null)
+    //     {
+    //         _groundTileMap = groundObject.GetComponent<Tilemap>();
+    //         Debug.Log($"Tilemap found: {_groundTileMap}");
+    //         if (_groundTileMap == null)
+    //         {
+    //             Debug.LogError("No Tilemap component found on GameObject with tag 'Ground'!");
+    //         }
+    //     }
+        
+
+    //     if (_plowedTile == null)
+    //     {
+    //         Debug.LogError("Plowed Tile is not assigned in the Inspector!");
+    //     }
+    // }
+
     void Start()
     {
         GameObject groundObject = GameObject.FindWithTag("Ground");
         if (groundObject != null)
         {
             _groundTileMap = groundObject.GetComponent<Tilemap>();
+            Debug.Log($"Tilemap found: {_groundTileMap}"); 
             if (_groundTileMap == null)
             {
                 Debug.LogError("No Tilemap component found on GameObject with tag 'Ground'!");
             }
+
+           _plowedTile = Resources.Load<Tile>("Tilled_Dirt_11");
+ 
         }
         else
         {
@@ -25,6 +49,7 @@ public class TileManager : MonoBehaviour
 
         if (_plowedTile == null)
         {
+            Debug.Log(_plowedTile);
             Debug.LogError("Plowed Tile not assigned in Inspector!");
         }
     }
@@ -51,7 +76,7 @@ public class TileManager : MonoBehaviour
 
         if (tile != null)
         {
-            if (tile.name == "grass_tileset_16x16_24")
+            if (tile.name == "Grass_11")
             {
                 Debug.Log("true");
                 return true;

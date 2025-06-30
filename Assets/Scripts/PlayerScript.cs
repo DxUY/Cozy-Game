@@ -1,5 +1,7 @@
-    using Mono.Cecil.Cil;
-    using UnityEngine;
+using Mono.Cecil.Cil;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
 
     public class PlayerScript : MonoBehaviour
     {
@@ -10,7 +12,13 @@
         private float _moveY;
         [SerializeField] private float _speedLimiter = 0.2f;
         private Animator animator;
-        private bool _isFacingLeft = true;
+        private Vector3 _mousePosition;
+
+        [SerializeField] private Tilemap _groundTileMap;
+
+        [SerializeField] private Tile _highlightTile;
+
+        [SerializeField] private Tile _grassTile;
 
         [SerializeField]  public Inventory _inventory;
         public Inventory inventory
@@ -33,6 +41,25 @@
 
         void Update()
         {
+        if (_mousePosition != null)
+        {
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPosition.z = 0;
+
+            Vector2 cellSize = _groundTileMap.cellSize; // Đảm bảo kiểm tra giá trị này trong Inspector
+            Vector3 adjustedPosition = worldPosition + new Vector3(cellSize.x / 2, cellSize.y / 2, 0);
+            Debug.Log(cellSize);
+            Vector3Int cellPosition = _groundTileMap.WorldToCell(adjustedPosition);
+
+            
+
+            _groundTileMap.SetTile(cellPosition, _highlightTile);
+            Debug.Log("Mouse World Pos: " + worldPosition + " Adjusted Pos: " + adjustedPosition + " Cell Pos: " + cellPosition);
+            
+
+
+        }   
+
             // Remove 'float' keyword here since variables are already declared as class members
             _moveX = Input.GetAxisRaw("Horizontal");
             _moveY = Input.GetAxisRaw("Vertical");
@@ -42,23 +69,11 @@
 
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
             {
-            Vector3 position;
-            if (_isFacingLeft)
-            {
-                 position = new Vector3(Mathf.Round(transform.position.x - 0.5f),
-                        transform.position.y , 0);
-            }
-            else
-            {
-                 position = new Vector3(Mathf.Round(transform.position.x + 0.5f),
-                        transform.position.y , 0);
-            }
-
-            if ((bool)EventBus.GetTileAvailable?.Invoke(position))
+            if ((bool)EventBus.GetTileAvailable?.Invoke(_mousePosition))
                 {
-                    EventBus.Plowed?.Invoke(position);
+                    EventBus.Plowed?.Invoke(_mousePosition);
                 }
                 
             }
