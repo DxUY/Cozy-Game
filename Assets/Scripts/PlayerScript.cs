@@ -29,7 +29,7 @@ using UnityEngine.Tilemaps;
 
     private void Awake()
     {
-        _inventory = new Inventory(10);
+        _inventory = new Inventory(15);
 
     }
 
@@ -47,7 +47,7 @@ using UnityEngine.Tilemaps;
             worldPosition.z = 0;
 
             Vector2 cellSize = _groundTileMap.cellSize; // Đảm bảo kiểm tra giá trị này trong Inspector
-            Vector3 adjustedPosition = worldPosition + new Vector3(cellSize.x / 2, cellSize.y / 2, 0);
+            Vector3 adjustedPosition = worldPosition + new Vector3(1, 1, 0);
             Debug.Log(cellSize);
             Vector3Int cellPosition = _groundTileMap.WorldToCell(adjustedPosition);
 

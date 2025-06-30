@@ -8,7 +8,7 @@ public class Inventory_UI : MonoBehaviour
     private bool isOpen = false;
     [SerializeField] private PlayerScript player;
     [SerializeField] private List<Slot_UI> slots = new List<Slot_UI>();
-  
+
 
     void Start()
     {
@@ -40,11 +40,11 @@ public class Inventory_UI : MonoBehaviour
 
     void setUp()
     {
-        if(slots.Count == player.inventory.slots.Count)
+        if (slots.Count == player.inventory.slots.Count)
         {
             for (int i = 0; i < slots.Count; i++)
             {
-                if(player.inventory.slots[i].itemName != "")
+                if (player.inventory.slots[i].itemData != null)
                 {
                     slots[i].SetItem(player.inventory.slots[i]);
                 }
@@ -54,6 +54,13 @@ public class Inventory_UI : MonoBehaviour
                 }
             }
         }
-        
+
+    }
+
+    public void removeItem(int slotId)
+    {
+        player.inventory.remove(slotId);
+        setUp();
+
     }
 }

@@ -7,17 +7,11 @@ public class Inventory
     [System.Serializable]
     public class Slot  // Made Slot public if you need to access it elsewhere
     {
-        private string _itemName; // Renamed to follow C# conventions
-        public string itemName
+        [SerializeField] private ItemData _itemData; // Changed to ItemData for clarity
+        public ItemData itemData
         {
-            get { return _itemName; } // Property to access item name
-            private set { _itemName = value; } // Private setter to prevent external modification
-        }
-        private Sprite _icon; // Added icon for UI representation
-        public Sprite icon
-        {
-            get { return _icon; } // Property to access icon
-            private set { _icon = value; } // Private setter to prevent external modification
+            get { return _itemData; } // Property to access item data
+            private set { _itemData = value; } // Private setter to prevent external modification
         }
         private int _quantity;
         public int quantity
@@ -31,17 +25,30 @@ public class Inventory
         {
             _quantity = 0;
             _max = 99;
-            _itemName = "";
+            _itemData = null;
         }
 
         public bool CanAdd() => _quantity < _max; // Simplified with expression body
 
         public void AddItem(Item item)
         {
-            
-            _itemName = item.data.itemName; // Set item name from the item data
-            _icon = item.data.itemIcon; // Set icon from the item
+
+            _itemData = item.data; // Assuming Item has a data property of type ItemData
             _quantity++;
+        }
+
+        public void removeItem()
+        {
+            if (quantity > 0)
+            {
+                quantity--;
+
+                if (quantity == 0)
+                {
+                    _itemData = null;
+                }
+            }
+
         }
 
     }
@@ -66,7 +73,7 @@ public class Inventory
     {
         foreach (Slot slot in _slots)
         {
-            if (slot.itemName == addedItem.data.itemName && slot.CanAdd())
+            if (slot.itemData == addedItem.data && slot.CanAdd())
             {
                 slot.AddItem(addedItem);
                 Debug.Log($"Added {addedItem.data.itemName} to existing stack. Quantity: {slot.quantity}");
@@ -77,7 +84,7 @@ public class Inventory
 
         foreach (Slot slot in _slots)
         {
-            if (slot.itemName == "")
+            if (slot.itemData==null)
             {
                 slot.AddItem(addedItem);
                 Debug.Log($"Added {addedItem.data.itemName} to new slot. Quantity: {slot.quantity}");
@@ -88,5 +95,11 @@ public class Inventory
         Debug.LogWarning("Inventory is full!");
     }
 
-    public List<Slot> GetSlots() => _slots;
+
+    public void remove(int index)
+    {
+        _slots[index].removeItem();
+
+
+    }
 }

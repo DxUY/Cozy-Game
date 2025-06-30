@@ -11,7 +11,7 @@ public class Slot_UI : MonoBehaviour
 
     public void SetItem(Inventory.Slot slot)
     {
-        _icon.sprite = slot.icon;
+        _icon.sprite = slot.itemData.itemIcon; // Assuming itemData has a property itemIcon of type Sprite
         _icon.color = new Color(1, 1, 1, 1); // Set icon color to white for visibility
         _quantityText.text = slot.quantity.ToString();
     }
