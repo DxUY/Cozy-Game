@@ -7,30 +7,51 @@ public class Inventory
     [System.Serializable]
     public class Slot  // Made Slot public if you need to access it elsewhere
     {
-        public CollectableType _type; // Renamed to follow C# conventions
+        private string _itemName; // Renamed to follow C# conventions
+        public string itemName
+        {
+            get { return _itemName; } // Property to access item name
+            private set { _itemName = value; } // Private setter to prevent external modification
+        }
+        private Sprite _icon; // Added icon for UI representation
+        public Sprite icon
+        {
+            get { return _icon; } // Property to access icon
+            private set { _icon = value; } // Private setter to prevent external modification
+        }
         private int _quantity;
+        public int quantity
+        {
+            get { return _quantity; } // Property to access quantity
+            private set { _quantity = value; } // Private setter to prevent external modification
+        }
         private int _max;
 
         public Slot()
         {
             _quantity = 0;
             _max = 99;
-            _type = CollectableType.NONE;
+            _itemName = "";
         }
 
         public bool CanAdd() => _quantity < _max; // Simplified with expression body
 
-        public void AddItem(CollectableType type)
+        public void AddItem(Item item)
         {
-            _type = type;
+            
+            _itemName = item.data.itemName; // Set item name from the item data
+            _icon = item.data.itemIcon; // Set icon from the item
             _quantity++;
         }
 
-        // Optional: expose quantity for debugging/inspection
-        public int Quantity => _quantity;
     }
 
     [SerializeField] private List<Slot> _slots = new List<Slot>(); // Added SerializeField for Inspector visibility
+    public List<Slot> slots
+    {
+        get { return _slots; } // Property to access slots
+        private set { _slots = value; } // Private setter to prevent external modification
+    }
 
     public Inventory(int amount)
     {
@@ -41,14 +62,14 @@ public class Inventory
     }
 
     // Inventory.cs
-    public void Add(CollectableType addedType)
+    public void Add(Item addedItem)
     {
         foreach (Slot slot in _slots)
         {
-            if (slot._type == addedType && slot.CanAdd())
+            if (slot.itemName == addedItem.data.itemName && slot.CanAdd())
             {
-                slot.AddItem(addedType);
-                Debug.Log($"Added {addedType} to existing stack. Quantity: {slot.Quantity}");
+                slot.AddItem(addedItem);
+                Debug.Log($"Added {addedItem.data.itemName} to existing stack. Quantity: {slot.quantity}");
                 Debug.Log(_slots);
                 return;
             }
@@ -56,10 +77,10 @@ public class Inventory
 
         foreach (Slot slot in _slots)
         {
-            if (slot._type == CollectableType.NONE)
+            if (slot.itemName == "")
             {
-                slot.AddItem(addedType);
-                Debug.Log($"Added {addedType} to new slot. Quantity: {slot.Quantity}");
+                slot.AddItem(addedItem);
+                Debug.Log($"Added {addedItem.data.itemName} to new slot. Quantity: {slot.quantity}");
                 return;
             }
         }
