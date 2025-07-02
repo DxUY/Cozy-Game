@@ -4,10 +4,38 @@ using UnityEngine.UI;
 
 public class Slot_UI : MonoBehaviour
 {
+    [SerializeField] private int _slotId;
+    [SerializeField] private Inventory _inventory;
     [SerializeField] private Image _icon;
     [SerializeField] private TextMeshProUGUI _quantityText;
 
     [SerializeField] private GameObject _highlight;
+
+    public int slotId
+    {
+        get { return _slotId; }
+        set { _slotId = value; }
+    }
+
+    public Inventory inventory
+    {
+        get { return _inventory; }
+        set { _inventory = value; }
+    }
+
+    public Image icon
+    {
+        get { return _icon; }
+        set { _icon = value; }
+    }
+
+    public TextMeshProUGUI quantityText
+    {
+        get { return _quantityText; }
+        set { _quantityText = value; }
+    }
+
+
 
     public void SetItem(Inventory.Slot slot)
     {

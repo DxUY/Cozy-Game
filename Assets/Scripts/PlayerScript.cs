@@ -20,45 +20,41 @@ using UnityEngine.Tilemaps;
 
         [SerializeField] private Tile _grassTile;
 
-        [SerializeField]  public Inventory _inventory;
-        public Inventory inventory
-        {
-            get { return _inventory; }
-            set { _inventory = value; }
-        }
-
-    private void Awake()
+        [SerializeField]  private InventoryManager _inventoryManager;
+        public InventoryManager inventoryManager
     {
-        _inventory = new Inventory(15);
-
-    }
-
-    void Start()
-        {
-            rb = GetComponent<Rigidbody2D>();
-            animator = GetComponent<Animator>();
+        get { return _inventoryManager; }
+            set { _inventoryManager = value; }
         }
+
+    void Awake()
+    {
+        _inventoryManager = GetComponent<InventoryManager>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        
+    }
 
         void Update()
         {
-        if (_mousePosition != null)
-        {
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPosition.z = 0;
+        // if (_mousePosition != null)
+        // {
+        //     Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //     worldPosition.z = 0;
 
-            Vector2 cellSize = _groundTileMap.cellSize; // Đảm bảo kiểm tra giá trị này trong Inspector
-            Vector3 adjustedPosition = worldPosition + new Vector3(1, 1, 0);
-            Debug.Log(cellSize);
-            Vector3Int cellPosition = _groundTileMap.WorldToCell(adjustedPosition);
+        //     Vector2 cellSize = _groundTileMap.cellSize; // Đảm bảo kiểm tra giá trị này trong Inspector
+        //     Vector3 adjustedPosition = worldPosition + new Vector3(1, 1, 0);
+        //     //Debug.Log(cellSize);
+        //     Vector3Int cellPosition = _groundTileMap.WorldToCell(adjustedPosition);
 
             
 
-            _groundTileMap.SetTile(cellPosition, _highlightTile);
-            Debug.Log("Mouse World Pos: " + worldPosition + " Adjusted Pos: " + adjustedPosition + " Cell Pos: " + cellPosition);
+        //     _groundTileMap.SetTile(cellPosition, _highlightTile);
+        //     //Debug.Log("Mouse World Pos: " + worldPosition + " Adjusted Pos: " + adjustedPosition + " Cell Pos: " + cellPosition);
             
 
 
-        }   
+        // }   
 
             // Remove 'float' keyword here since variables are already declared as class members
             _moveX = Input.GetAxisRaw("Horizontal");
