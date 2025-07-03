@@ -14,4 +14,6 @@ public static class EventBus
 
     public static Func<Vector3, bool> GetTileAvailable;
     public static Action<Vector3> Plowed;
+
+    public static Func<Slot_UI> GetCurrentSlot;
 }

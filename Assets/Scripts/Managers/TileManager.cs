@@ -6,6 +6,7 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] private Tilemap _groundTileMap;
     [SerializeField] private Tile _plowedTile;
+    [SerializeField] private Tilemap _secondLayer;
 
     void Start()
     {
@@ -13,10 +14,12 @@ public class TileManager : MonoBehaviour
         if (groundObject != null)
         {
             _groundTileMap = groundObject.GetComponent<Tilemap>();
+            Debug.Log($"Tilemap found: {_groundTileMap}"); 
             if (_groundTileMap == null)
             {
                 Debug.LogError("No Tilemap component found on GameObject with tag 'Ground'!");
             }
+ 
         }
         else
         {
@@ -25,6 +28,7 @@ public class TileManager : MonoBehaviour
 
         if (_plowedTile == null)
         {
+            Debug.Log(_plowedTile);
             Debug.LogError("Plowed Tile not assigned in Inspector!");
         }
     }
@@ -51,7 +55,7 @@ public class TileManager : MonoBehaviour
 
         if (tile != null)
         {
-            if (tile.name == "grass_tileset_16x16_24")
+            if (tile.name == "Grass_11")
             {
                 Debug.Log("true");
                 return true;
@@ -74,4 +78,10 @@ public class TileManager : MonoBehaviour
 
     // Optional: Expose Tilemap for PlayerScript if needed
     public Tilemap GetGroundTilemap() => _groundTileMap;
+
+    public void plantSeed(Vector3 worldPosition)
+    {
+        Vector3Int tilePosition = _secondLayer.WorldToCell(worldPosition);
+        _secondLayer.SetTile(tilePosition, _plowedTile);
+    }
 }

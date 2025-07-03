@@ -15,7 +15,7 @@ public class CollectableScript : MonoBehaviour
                 Item item = GetComponent<Item>();
                 if (item != null)
                 {
-                    player.inventory.Add(item);
+                    player.inventoryManager.backpack.Add(item);
                     Destroy(this.gameObject);
                     Debug.Log($"Added {item.data.itemName} to inventory.");
                 }

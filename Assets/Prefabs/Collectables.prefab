@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4900896166953281105}
   - component: {fileID: 4386275464408301417}
   - component: {fileID: 4617601536475398684}
-  - component: {fileID: 1910303442350120146}
+  - component: {fileID: 5917814310185146221}
   - component: {fileID: 4598123842075936972}
   m_Layer: 0
   m_Name: Collectables
@@ -127,7 +127,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 0.99999994}
   m_Direction: 0
---- !u!114 &1910303442350120146
+--- !u!114 &5917814310185146221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
