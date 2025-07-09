@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5917814310185146221}
   - component: {fileID: 4598123842075936972}
   m_Layer: 0
-  m_Name: Collectables
+  m_Name: Hoe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.21631074, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -151,4 +151,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e93d4b0070ef641a95dd3c6d7b6d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 726197585f6ed4e41a6943942859cd7e, type: 2}
+  _data: {fileID: 11400000, guid: 905f5b9fde356f14c9f62cd67cc0c645, type: 2}

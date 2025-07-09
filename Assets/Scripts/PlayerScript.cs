@@ -46,13 +46,32 @@ void Awake()
         _moveVelocity = new Vector2(_moveX, _moveY) * moveSpeed;
 
 
-        _selectedItemName = EventBus.GetCurrentSlot?.Invoke().itemName;
 
-    if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonDown(0))
         {
-        if ((bool)EventBus.GetTileAvailable?.Invoke(adjustedPosition) && _selectedItemName!=null && _selectedItemName.Contains("_hoe"))
+            _selectedItemName = EventBus.GetCurrentSlot?.Invoke().itemName;
+            if ((bool)EventBus.GetTileAvailable?.Invoke(adjustedPosition) && _selectedItemName != null && _selectedItemName.Contains("_hoe"))
             {
                 EventBus.Plowed?.Invoke(adjustedPosition);
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _selectedItemName = EventBus.GetCurrentSlot?.Invoke().itemName;
+            if (_selectedItemName.Contains("_seed"))
+            {
+                EventBus.PlantSeed?.Invoke(adjustedPosition, _selectedItemName);
+            }
+            else if (_selectedItemName.Contains("_watercan"))
+            {
+                EventBus.WaterPlant.Invoke(adjustedPosition);
+            }
+            else if (_selectedItemName.Contains("_fishingrod"))
+            {
+                EventBus.FishingUI.Invoke();
             }
                 
         }

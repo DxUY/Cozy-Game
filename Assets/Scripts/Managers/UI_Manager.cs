@@ -7,7 +7,7 @@ public class UI_Manager : MonoBehaviour
 {
     private Dictionary<string, Inventory_UI> _inventoryUiDict = new Dictionary<string, Inventory_UI>();
 
-    [SerializeField]  private List<Inventory_UI> _inventoryUiList = new List<Inventory_UI>();
+    [SerializeField] private List<Inventory_UI> _inventoryUiList = new List<Inventory_UI>();
 
     [SerializeField] private GameObject _inventoryPanel;
     private bool _inventoryVisible = false;
@@ -15,6 +15,9 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] public static Slot_UI _draggingSlot;
     [SerializeField] public static Image _draggingIcon;
     private Slot_UI _currentSlot;
+
+    [SerializeField] private Slider _caughtSlider;
+    [SerializeField] private Slider _tensionSlider;
 
 
     private void Awake()
@@ -30,11 +33,17 @@ public class UI_Manager : MonoBehaviour
     private void OnEnable()
     {
         EventBus.GetCurrentSlot += getCurrentSlot;
+        EventBus.SetUpAllInventory += setUpAllInventory;
+        EventBus.FishingUI += startFishing;
+
     }
 
     private void OnDisable()
     {
         EventBus.GetCurrentSlot -= getCurrentSlot;
+        EventBus.SetUpAllInventory -= setUpAllInventory;
+        EventBus.FishingUI -= startFishing;
+
     }
 
     private void Update()
@@ -55,14 +64,14 @@ public class UI_Manager : MonoBehaviour
 
     private void initialized()
     {
-        foreach(Inventory_UI ui in _inventoryUiList)
+        foreach (Inventory_UI ui in _inventoryUiList)
         {
             if (!_inventoryUiDict.ContainsKey(ui.inventoryName))
             {
                 _inventoryUiDict.Add(ui.inventoryName, ui);
             }
         }
-            
+
 
     }
 
@@ -89,7 +98,7 @@ public class UI_Manager : MonoBehaviour
 
     public void setUpInventory(string inventoryName)
     {
-        if(_inventoryUiDict.ContainsKey(inventoryName))
+        if (_inventoryUiDict.ContainsKey(inventoryName))
         {
             _inventoryUiDict[inventoryName].setUp();
         }
@@ -105,13 +114,13 @@ public class UI_Manager : MonoBehaviour
 
     public void selectSlot(int index, string iventoryName)
     {
-        if (_currentSlot!=null)
+        if (_currentSlot != null)
         {
             _currentSlot.setHighLight(false);
-            
+
         }
-            _currentSlot = _inventoryUiDict[iventoryName].Slots[index];
-            _currentSlot.setHighLight(true);
+        _currentSlot = _inventoryUiDict[iventoryName].Slots[index];
+        _currentSlot.setHighLight(true);
         Debug.Log("Selected slot " + _currentSlot);
     }
 
@@ -134,6 +143,17 @@ public class UI_Manager : MonoBehaviour
     public Slot_UI getCurrentSlot()
     {
 
-        return _currentSlot;  
+        return _currentSlot;
+    }
+
+
+    public void startFishing()
+    {
+        if (_caughtSlider != null && _tensionSlider != null)
+        {
+            _caughtSlider.gameObject.SetActive(true);
+            _tensionSlider.gameObject.SetActive(true);
+            EventBus.Fishing.Invoke();
+        }
     }
 }

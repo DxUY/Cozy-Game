@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc82f83f0cb98ab41bf1cea6214e1ce6, type: 3}
-  m_Name: CarrotSeed
+  m_Name: WaterCan
   m_EditorClassIdentifier: 
-  _itemName: carrot_seed
-  _itemIcon: {fileID: 475435623110610922, guid: db31d6962181ad5468a0616fb20cf941, type: 3}
-  _itemPrefab: {fileID: 7438381292882832258, guid: 6d06ba83ae4d18f4faac27ecd3f0fdcf, type: 3}
+  _itemName: test_watercan
+  _itemIcon: {fileID: 160778393, guid: db31d6962181ad5468a0616fb20cf941, type: 3}
+  _itemPrefab: {fileID: 7438381292882832258, guid: 76506d732df2f7442a987acaeb749ea0, type: 3}

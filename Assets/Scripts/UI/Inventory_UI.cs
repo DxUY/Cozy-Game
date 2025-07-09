@@ -10,7 +10,6 @@ public class Inventory_UI : MonoBehaviour
     [SerializeField] private Canvas _canvas;
     [SerializeField] private Inventory _inventory;
     [SerializeField] private string _inventoryName;
-    [SerializeField] private UI_Manager _uiManager;
 
 
     public string inventoryName
@@ -130,7 +129,7 @@ public class Inventory_UI : MonoBehaviour
         Debug.Log(UI_Manager._draggingSlot);
         Debug.Log("Testing: "+ ( slot.inventory));
         UI_Manager._draggingSlot.inventory.moveSlot(UI_Manager._draggingSlot.slotId, slot.slotId, slot.inventory);
-        _uiManager.setUpAllInventory();
+        EventBus.SetUpAllInventory?.Invoke();
         Debug.Log("Dropped Slot: " + slot.name);
     }
 

@@ -8,6 +8,7 @@ public class Inventory
     public class Slot  // Made Slot public if you need to access it elsewhere
     {
         [SerializeField] private ItemData _itemData; // Changed to ItemData for clarity
+        [SerializeField] private Item _item;
         public ItemData itemData
         {
             get { return _itemData; } // Property to access item data
@@ -44,7 +45,6 @@ public class Inventory
 
         public void AddItem(Item item)
         {
-
             _itemData = item.data; // Assuming Item has a data property of type ItemData
             _quantity++;
         }
@@ -129,13 +129,11 @@ public class Inventory
         return item;
     }
 
-    public void moveSlot(int draggingSlotIndex, int destinationSlotIndex, Inventory destinationSlotInventory)
+    public void moveSlot(int draggingSlotIndex, int destinationSlotIndex, Inventory draggingSlotInventory)
     {
         Debug.Log("Test");
-        Debug.Log(destinationSlotInventory);
-        Debug.Log(draggingSlotIndex);
         Slot draggingSlot = _slots[draggingSlotIndex];
-        Slot destinationSlot = destinationSlotInventory._slots[destinationSlotIndex];
+        Slot destinationSlot = draggingSlotInventory._slots[destinationSlotIndex];
         Debug.Log(draggingSlot.isEmpty());
         Debug.Log(destinationSlot.CanAdd(draggingSlot.itemData));
 

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc82f83f0cb98ab41bf1cea6214e1ce6, type: 3}
-  m_Name: CarrotSeed
+  m_Name: Hoe
   m_EditorClassIdentifier: 
-  _itemName: carrot_seed
-  _itemIcon: {fileID: 475435623110610922, guid: db31d6962181ad5468a0616fb20cf941, type: 3}
-  _itemPrefab: {fileID: 7438381292882832258, guid: 6d06ba83ae4d18f4faac27ecd3f0fdcf, type: 3}
+  _itemName: test_hoe
+  _itemIcon: {fileID: 1404290083, guid: db31d6962181ad5468a0616fb20cf941, type: 3}
+  _itemPrefab: {fileID: 7438381292882832258, guid: 1816c4da26a949245b4c0bdda0db4143, type: 3}
