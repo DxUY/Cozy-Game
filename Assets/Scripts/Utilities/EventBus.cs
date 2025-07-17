@@ -28,5 +28,5 @@ public static class EventBus
     public static Action FishingUI;
     public static Action Fishing;
 
-
+    public static Action<Vector3> InteractableInteract;
 }

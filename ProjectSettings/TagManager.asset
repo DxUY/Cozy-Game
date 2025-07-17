@@ -48,5 +48,8 @@ TagManager:
   - name: Crops
     uniqueID: 81087279
     locked: 0
+  - name: Constructions
+    uniqueID: 2161741203
+    locked: 0
   m_RenderingLayers:
   - Default

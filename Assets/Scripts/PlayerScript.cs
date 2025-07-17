@@ -57,6 +57,12 @@ void Awake()
             }
 
         }
+        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("Testing");
+            EventBus.InteractableInteract?.Invoke(adjustedPosition);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -73,7 +79,7 @@ void Awake()
             {
                 EventBus.FishingUI.Invoke();
             }
-                
+
         }
     }
 

@@ -9,6 +9,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile _plowedTile;
     [SerializeField] private Tile _soiledTile;
     [SerializeField] private Tilemap _secondLayer;
+    [SerializeField] private Tilemap _constructionsTileMap;
 
     [SerializeField] private Dictionary<Vector3Int, PlantedCrop> _plantedTiles = new Dictionary<Vector3Int, PlantedCrop>();
 
@@ -44,6 +45,7 @@ public class TileManager : MonoBehaviour
         EventBus.PlantSeed += plantSeed;
         EventBus.UpdateAllCrops += updateAllCrops;
         EventBus.WaterPlant += waterCrop;
+        EventBus.InteractableInteract += interact;
 
     }
 
@@ -54,6 +56,7 @@ public class TileManager : MonoBehaviour
         EventBus.PlantSeed -= plantSeed;
         EventBus.UpdateAllCrops -= updateAllCrops;
         EventBus.WaterPlant -= waterCrop;
+        EventBus.InteractableInteract -= interact;
 
     }
 
@@ -106,13 +109,13 @@ public class TileManager : MonoBehaviour
             if (isPlowed(tilePosition))
             {
 
-            PlantedCrop plantedCrop = new PlantedCrop(plantCropData, EventBus.GetCurrentDate.Invoke(), 0, 0);
+                PlantedCrop plantedCrop = new PlantedCrop(plantCropData, EventBus.GetCurrentDate.Invoke(), 0, 0);
 
-            _secondLayer.SetTile(tilePosition, plantedCrop.growthStageTiles[0]);
-            _plantedTiles.Add(tilePosition, plantedCrop);
-            Debug.Log("Planted " + seedName + " at " + tilePosition);
+                _secondLayer.SetTile(tilePosition, plantedCrop.growthStageTiles[0]);
+                _plantedTiles.Add(tilePosition, plantedCrop);
+                Debug.Log("Planted " + seedName + " at " + tilePosition);
             }
-            
+
         }
         else Debug.Log("No CropData with seed name: " + seedName);
 
@@ -126,8 +129,8 @@ public class TileManager : MonoBehaviour
             PlantedCrop plantCrop = _plantedTiles[tilePosition];
             _groundTileMap.SetTile(tilePosition, _soiledTile);
             plantCrop.daysWatered += 1;
-            Debug.Log("waterCrop Function:" +plantCrop.daysWatered);
-            }
+            Debug.Log("waterCrop Function:" + plantCrop.daysWatered);
+        }
 
     }
 
@@ -147,11 +150,11 @@ public class TileManager : MonoBehaviour
             PlantedCrop crop = pair.Value;
             if (crop.currentGrowthStage < crop.growthStageTiles.Count - 1 && crop.daysWatered >= crop.daysTillNextStage)
             {
-                Debug.Log("updateCrop Function, crop.currentGrowthStage < crop.growthStageTiles.Count - 1: "+ (crop.currentGrowthStage < crop.growthStageTiles.Count - 1));
-                Debug.Log("updateCrop Function, daysWatered: "+crop.daysWatered);
-                Debug.Log("updateCrop Function, daysTillNextStage: "+crop.daysTillNextStage);
+                Debug.Log("updateCrop Function, crop.currentGrowthStage < crop.growthStageTiles.Count - 1: " + (crop.currentGrowthStage < crop.growthStageTiles.Count - 1));
+                Debug.Log("updateCrop Function, daysWatered: " + crop.daysWatered);
+                Debug.Log("updateCrop Function, daysTillNextStage: " + crop.daysTillNextStage);
                 _secondLayer.SetTile(pair.Key, crop.nextStageTile);
-                Debug.Log("updateCrop Function, crop.nextStageTile: "+crop.nextStageTile);
+                Debug.Log("updateCrop Function, crop.nextStageTile: " + crop.nextStageTile);
                 crop.currentGrowthStage += 1;
                 crop.daysWatered = 0;
             }
@@ -162,5 +165,18 @@ public class TileManager : MonoBehaviour
             _groundTileMap.SetTile(pair.Key, _plowedTile);
 
         }
+    }
+
+    public void interact(Vector3 worldPosition)
+    {
+        Debug.Log("TileManager interact called");
+        Vector3Int tilePosition = _constructionsTileMap.WorldToCell(worldPosition);
+        TileBase tile = _constructionsTileMap.GetTile(tilePosition);
+        if (tile is IInteractables interactableTile)
+        {
+            Debug.Log("TileManager interact if success");
+            interactableTile.Interact(gameObject);
+        }
+
     }
 }
