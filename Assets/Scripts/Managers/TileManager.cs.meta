@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - _groundTileMap: {instanceID: 0}
-  - _plowedTile: {fileID: 11400000, guid: 21cb51332735f8441896c506352d299b, type: 2}
+  - _plowedTile: {fileID: 11400000, guid: f696d30782558704e9ceddd14abf7160, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

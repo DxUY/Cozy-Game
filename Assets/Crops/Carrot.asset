@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a50492e1b8225458dd0e98fa4a946f, type: 3}
+  m_Name: Carrot
+  m_EditorClassIdentifier: 
+  _growthStageTiles:
+  - {fileID: 11400000, guid: adb680bd975326747b34586b96339dd4, type: 2}
+  - {fileID: 11400000, guid: 951197e68181c4448b884904b8c170f5, type: 2}
+  _growthStageDays: 0100000001000000
+  _seedName: carrot_seed

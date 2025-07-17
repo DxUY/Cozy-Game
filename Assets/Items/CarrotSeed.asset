@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc82f83f0cb98ab41bf1cea6214e1ce6, type: 3}
   m_Name: CarrotSeed
   m_EditorClassIdentifier: 
-  _itemName: Carrot Seed
-  _itemIcon: {fileID: 202985925, guid: e08c02502052597499fbf5d5d2e18ed1, type: 3}
+  _itemName: carrot_seed
+  _itemIcon: {fileID: 475435623110610922, guid: db31d6962181ad5468a0616fb20cf941, type: 3}
+  _itemPrefab: {fileID: 7438381292882832258, guid: 6d06ba83ae4d18f4faac27ecd3f0fdcf, type: 3}
