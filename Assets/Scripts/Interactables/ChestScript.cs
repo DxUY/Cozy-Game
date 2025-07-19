@@ -14,6 +14,7 @@ public class ChestScript : MonoBehaviour, IInteractables
     {
         Debug.Log("Chest interacted with at position: " + tilePosition);
         GetComponent<SpriteRenderer>().sprite = _chestOpenSprite;
+        EventBus.SetDialogue("Chest", "This is a chest", _chestOpenSprite);
     }
 
     void Start()
