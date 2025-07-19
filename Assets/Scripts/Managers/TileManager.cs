@@ -9,33 +9,32 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile _plowedTile;
     [SerializeField] private Tile _soiledTile;
     [SerializeField] private Tilemap _secondLayer;
-    [SerializeField] private Tilemap _constructionsTileMap;
+    [SerializeField] private Tilemap _constructionTileMap;
 
     [SerializeField] private Dictionary<Vector3Int, PlantedCrop> _plantedTiles = new Dictionary<Vector3Int, PlantedCrop>();
+    [SerializeField] private Dictionary<Vector3Int, IInteractables> _interactables = new Dictionary<Vector3Int, IInteractables>();
+
 
     void Start()
     {
-        GameObject groundObject = GameObject.FindWithTag("Ground");
-        if (groundObject != null)
+        GameObject[] interactableObjects = GameObject.FindGameObjectsWithTag("Interactable");
+        foreach (var obj in interactableObjects)
         {
-            _groundTileMap = groundObject.GetComponent<Tilemap>();
-            Debug.Log($"Tilemap found: {_groundTileMap}");
-            if (_groundTileMap == null)
+            if (obj.TryGetComponent<IInteractables>(out var interactable))
             {
-                Debug.LogError("No Tilemap component found on GameObject with tag 'Ground'!");
+                Vector3Int pos = _constructionTileMap.WorldToCell(obj.transform.position);
+                _interactables[pos] = interactable;
+                Debug.Log($"Added interactable at {pos} with type {interactable.GetType().Name}");
+                interactable.tilePosition = pos; // Set the tile position for the interactable
             }
-
-        }
-        else
-        {
-            Debug.LogError("No GameObject with tag 'Ground' found in the scene!");
         }
 
-        if (_plowedTile == null)
+
+        foreach (KeyValuePair<Vector3Int, IInteractables> pair in _interactables)
         {
-            Debug.Log(_plowedTile);
-            Debug.LogError("Plowed Tile not assigned in Inspector!");
+            Debug.Log($"Interactable at {pair.Key} with type {pair.Value.GetType().Name}");
         }
+
     }
 
     private void OnEnable()
@@ -45,7 +44,6 @@ public class TileManager : MonoBehaviour
         EventBus.PlantSeed += plantSeed;
         EventBus.UpdateAllCrops += updateAllCrops;
         EventBus.WaterPlant += waterCrop;
-        EventBus.InteractableInteract += interact;
 
     }
 
@@ -56,7 +54,6 @@ public class TileManager : MonoBehaviour
         EventBus.PlantSeed -= plantSeed;
         EventBus.UpdateAllCrops -= updateAllCrops;
         EventBus.WaterPlant -= waterCrop;
-        EventBus.InteractableInteract -= interact;
 
     }
 
@@ -167,16 +164,4 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public void interact(Vector3 worldPosition)
-    {
-        Debug.Log("TileManager interact called");
-        Vector3Int tilePosition = _constructionsTileMap.WorldToCell(worldPosition);
-        TileBase tile = _constructionsTileMap.GetTile(tilePosition);
-        if (tile is IInteractables interactableTile)
-        {
-            Debug.Log("TileManager interact if success");
-            interactableTile.Interact(gameObject);
-        }
-
     }
-}
