@@ -1,20 +1,30 @@
+using System;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(fileName = "ChestTile", menuName = "Tiles/ChestTile")]
-public class ChestTile : InteractableTile
+public class ChestScript : MonoBehaviour, IInteractables
 {
-    [SerializeField] private Vector3Int position; // Lưu vị trí của tile trong lưới Tilemap
+    public Vector3Int tilePosition { get; set; }
 
-    public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
+    [SerializeField] private Inventory _inventory;
+
+    [SerializeField] private Sprite _chestOpenSprite;
+    [SerializeField] private Sprite _chestClosedSprite;
+
+    public void Interact()
     {
-        base.GetTileData(position, tilemap, ref tileData);
-        this.position = position; // Lưu vị trí của tile
-        tileData.sprite = this.sprite;
+        Debug.Log("Chest interacted with at position: " + tilePosition);
+        GetComponent<SpriteRenderer>().sprite = _chestOpenSprite;
+        EventBus.SetDialogue("Chest", "This is a chest", _chestOpenSprite);
     }
-    public override void Interact(GameObject interactingObject)
+
+    void Start()
     {
-        Debug.Log($"Clicked on {TileName}: {position}"); // Hành vi khi nhấp vào rương
-        // Ví dụ: Mở giao diện rương
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

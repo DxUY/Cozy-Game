@@ -57,30 +57,40 @@ void Awake()
             }
 
         }
-        
-        if (Input.GetKeyDown(KeyCode.F))
+
+        if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Testing");
-            EventBus.InteractableInteract?.Invoke(adjustedPosition);
+            RaycastHit2D hit = Physics2D.Raycast(_mousePosition, Vector2.zero);
+
+            if (hit.collider != null)
+            {
+                // Kiểm tra xem GameObject có triển khai IRightClickable không
+                IInteractables clickable = hit.collider.GetComponent<IInteractables>();
+                if (clickable != null)
+                {
+                    clickable.Interact();
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _selectedItemName = EventBus.GetCurrentSlot?.Invoke().itemName;
-            if (_selectedItemName.Contains("_seed"))
             {
-                EventBus.PlantSeed?.Invoke(adjustedPosition, _selectedItemName);
-            }
-            else if (_selectedItemName.Contains("_watercan"))
-            {
-                EventBus.WaterPlant.Invoke(adjustedPosition);
-            }
-            else if (_selectedItemName.Contains("_fishingrod"))
-            {
-                EventBus.FishingUI.Invoke();
-            }
+                _selectedItemName = EventBus.GetCurrentSlot?.Invoke().itemName;
+                if (_selectedItemName.Contains("_seed"))
+                {
+                    EventBus.PlantSeed?.Invoke(adjustedPosition, _selectedItemName);
+                }
+                else if (_selectedItemName.Contains("_watercan"))
+                {
+                    EventBus.WaterPlant.Invoke(adjustedPosition);
+                }
+                else if (_selectedItemName.Contains("_fishingrod"))
+                {
+                    EventBus.FishingUI.Invoke();
+                }
 
-        }
+
+            }
     }
 
     private void FixedUpdate()

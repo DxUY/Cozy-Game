@@ -2,5 +2,6 @@ using UnityEngine;
 
 public interface IInteractables
 {
-    void Interact(GameObject interactingObject); // Phương thức tương tác,Laurak
+    Vector3Int tilePosition { get; set; } // Vị trí của đối tượng tương tác
+    void Interact(); // Phương thức tương tác,Laurak
 }

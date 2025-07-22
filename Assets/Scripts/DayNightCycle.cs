@@ -25,7 +25,6 @@ public class DayNightCycle : MonoBehaviour
 
     [SerializeField] private DateTime _currentDate;
 
-    private float _elapsedTime = 0f;
     private bool _isSimulating = true;
 
     [SerializeField] private float _realTime;
