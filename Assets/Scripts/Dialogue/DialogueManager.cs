@@ -9,15 +9,10 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI contentText;
     public Image characterImage;
     public GameObject dialoguePanel;
-
     public bool isDialogueActive = false;
 
     private void Awake()
     {
-        // Tự động tìm UI elements nếu chưa được gán
-        if (dialoguePanel == null)
-            dialoguePanel = GameObject.Find("DialogueBox");
-            
         if (nameText == null)
             nameText = GameObject.Find("Name")?.GetComponent<TextMeshProUGUI>();
             
@@ -26,12 +21,25 @@ public class DialogueManager : MonoBehaviour
             
         if (characterImage == null)
             characterImage = GameObject.Find("Image")?.GetComponent<Image>();
+            
+        if (dialoguePanel == null)
+            dialoguePanel = GameObject.Find("Dialogue");
+            
+        // Ẩn dialogue panel khi khởi tạo
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
     }
 
     private void StartDialogue(string name, string content, Sprite sprite)
     {
         isDialogueActive = true;
-        dialoguePanel.SetActive(true);
+        
+        // Hiển thị dialogue panel
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(true);
+        else
+            Debug.LogError("dialoguePanel is null! Please assign Dialogue GameObject.");
+        
         // Kiểm tra null trước khi assign
         if (nameText != null)
             nameText.text = name;
@@ -47,12 +55,6 @@ public class DialogueManager : MonoBehaviour
             characterImage.sprite = sprite;
         else
             Debug.LogError("characterImage is null! Please assign Image component.");
-            
-        // Hiển thị dialogue panel
-        if (dialoguePanel != null)
-            dialoguePanel.SetActive(true);
-        else
-            Debug.LogError("dialoguePanel is null! Please assign DialogueBox GameObject.");
     }
 
     private void OnEnable()
@@ -64,17 +66,12 @@ public class DialogueManager : MonoBehaviour
     {
         EventBus.SetDialogue -= StartDialogue;
     }
-    void Start()
-    {
-        // Ẩn dialogue panel khi bắt đầu
-        if (dialoguePanel != null)
-            dialoguePanel.SetActive(false);
-    }
 
+    // Unity lifecycle method - called every frame
     void Update()
     {
         // Cho phép đóng dialogue bằng ESC hoặc Space
-        if (dialoguePanel != null && dialoguePanel.activeSelf)
+        if (isDialogueActive == true)
         {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
             {
@@ -85,9 +82,11 @@ public class DialogueManager : MonoBehaviour
     
     public void CloseDialogue()
     {
+        isDialogueActive = false;
+        
+        // Ẩn dialogue panel
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
-        isDialogueActive = false;
     }
 
     
