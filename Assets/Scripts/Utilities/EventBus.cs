@@ -1,4 +1,5 @@
 using System;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public static class EventBus
@@ -31,4 +32,6 @@ public static class EventBus
     public static Action<Vector3> InteractableInteract;
 
     public static Action<string, string, Sprite> SetDialogue;
+
+    public static Action<bool> Pause;
 }

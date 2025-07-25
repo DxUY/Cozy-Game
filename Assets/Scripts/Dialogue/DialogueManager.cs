@@ -70,11 +70,18 @@ public class DialogueManager : MonoBehaviour
     // Unity lifecycle method - called every frame
     void Update()
     {
+        // Debug để kiểm tra ESC input
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log($"DialogueManager: ESC pressed, isDialogueActive = {isDialogueActive}");
+        }
+        
         // Cho phép đóng dialogue bằng ESC hoặc Space
         if (isDialogueActive == true)
         {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log("DialogueManager: Closing dialogue");
                 CloseDialogue();
             }
         }

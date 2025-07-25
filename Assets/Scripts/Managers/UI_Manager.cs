@@ -156,4 +156,5 @@ public class UI_Manager : MonoBehaviour
             EventBus.Fishing.Invoke();
         }
     }
+    
 }
