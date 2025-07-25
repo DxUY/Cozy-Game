@@ -28,7 +28,11 @@ public static class EventBus
     public static Action FishingUI;
     public static Action Fishing;
 
-    public static Action<Vector3> InteractableInteract;
+    public static Action<Vector3, BuildableItem> Build;
+    public static Action HidePreview;
+    public static Action<BuildableItem, Vector3, bool> ShowPreview;
+    public static Func<Vector3, bool> IsEmpty;
+
 
     public static Action<string, string, Sprite> SetDialogue;
 }

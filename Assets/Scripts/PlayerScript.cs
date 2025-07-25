@@ -58,20 +58,6 @@ void Awake()
 
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            RaycastHit2D hit = Physics2D.Raycast(_mousePosition, Vector2.zero);
-
-            if (hit.collider != null)
-            {
-                // Kiểm tra xem GameObject có triển khai IRightClickable không
-                IInteractables clickable = hit.collider.GetComponent<IInteractables>();
-                if (clickable != null)
-                {
-                    clickable.Interact();
-                }
-            }
-        }
 
         if (Input.GetKeyDown(KeyCode.Space))
             {

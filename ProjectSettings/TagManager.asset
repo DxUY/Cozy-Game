@@ -53,5 +53,11 @@ TagManager:
   - name: Constructions
     uniqueID: 2161741203
     locked: 0
+  - name: Preview
+    uniqueID: 3149194865
+    locked: 0
+  - name: Player
+    uniqueID: 1306914557
+    locked: 0
   m_RenderingLayers:
   - Default
