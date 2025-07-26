@@ -18,17 +18,33 @@ public class BuildingPlacer : MonoBehaviour
         _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 adjustedPosition = _mousePosition + new Vector2(1, 1);
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _activeBuildableItem = EventBus.GetNextBuildableItem?.Invoke();
+            EventBus.SetUIActiveBuildable?.Invoke(_activeBuildableItem?.UiIcon);
+        }
+
         if (Vector3.Distance(_mousePosition, transform.position) > _maxDistance || _activeBuildableItem == null)
         {
             EventBus.HidePreview?.Invoke();
             return;
         }
-        EventBus.ShowPreview?.Invoke(_activeBuildableItem, adjustedPosition, (bool)EventBus.IsEmpty?.Invoke(adjustedPosition));
-        if (Input.GetMouseButtonDown(1))
-            {
-                Debug.Log("Attempting to place building");
-                EventBus.Build?.Invoke(adjustedPosition, _activeBuildableItem);
-            }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            EventBus.Destroy?.Invoke(adjustedPosition);
+        }
+
+        var isSpaceEmpty = (bool)EventBus.IsEmpty?.Invoke(adjustedPosition, _activeBuildableItem.UseCustomCollisionSpace ? _activeBuildableItem.CollisionSpace : default);
+
+        EventBus.ShowPreview?.Invoke(_activeBuildableItem, adjustedPosition, isSpaceEmpty);
+        if (Input.GetMouseButtonDown(1) && isSpaceEmpty)
+        {
+            Debug.Log("Attempting to place building");
+            EventBus.Build?.Invoke(adjustedPosition, _activeBuildableItem);
+        }
+
+        
     }
     
 }

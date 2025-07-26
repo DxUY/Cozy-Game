@@ -12,29 +12,11 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tilemap _constructionTileMap;
 
     [SerializeField] private Dictionary<Vector3Int, PlantedCrop> _plantedTiles = new Dictionary<Vector3Int, PlantedCrop>();
-    [SerializeField] private Dictionary<Vector3Int, IInteractables> _interactables = new Dictionary<Vector3Int, IInteractables>();
 
 
     void Start()
     {
-        GameObject[] interactableObjects = GameObject.FindGameObjectsWithTag("Interactable");
-        foreach (var obj in interactableObjects)
-        {
-            if (obj.TryGetComponent<IInteractables>(out var interactable))
-            {
-                Vector3Int pos = _constructionTileMap.WorldToCell(obj.transform.position);
-                _interactables[pos] = interactable;
-                Debug.Log($"Added interactable at {pos} with type {interactable.GetType().Name}");
-                interactable.tilePosition = pos; // Set the tile position for the interactable
-            }
-        }
-
-
-        foreach (KeyValuePair<Vector3Int, IInteractables> pair in _interactables)
-        {
-            Debug.Log($"Interactable at {pair.Key} with type {pair.Value.GetType().Name}");
-        }
-
+        
     }
 
     private void OnEnable()

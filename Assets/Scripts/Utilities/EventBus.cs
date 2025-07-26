@@ -29,9 +29,13 @@ public static class EventBus
     public static Action Fishing;
 
     public static Action<Vector3, BuildableItem> Build;
+    public static Action<Vector3> Destroy;
     public static Action HidePreview;
     public static Action<BuildableItem, Vector3, bool> ShowPreview;
-    public static Func<Vector3, bool> IsEmpty;
+    public static Func<Vector3, RectInt, bool> IsEmpty;
+    public static Func<BuildableItem> GetNextBuildableItem;
+    public static Action<Sprite> SetUIActiveBuildable;
+    public static Action<Buildable, bool> SetBuilableCollision;
 
 
     public static Action<string, string, Sprite> SetDialogue;

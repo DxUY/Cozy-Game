@@ -11,6 +11,8 @@ public class BuildableItem : ScriptableObject
     [SerializeField] private Sprite _previewSprite;
     [SerializeField] private Sprite _uiIcon;
     [SerializeField] private GameObject _gameObject;
+    [SerializeField] private RectInt _collisionSpace;
+    [SerializeField] private bool _useCustomCollisonSpace;
 
     public string Name => _name;
     public TileBase Tile => _tile;
@@ -18,6 +20,9 @@ public class BuildableItem : ScriptableObject
     public Sprite PreviewSprite => _previewSprite;
     public Sprite UiIcon => _uiIcon;
     public GameObject GameObject => _gameObject;
+
+    public RectInt CollisionSpace => _collisionSpace;
+    public bool UseCustomCollisionSpace => _useCustomCollisonSpace;
 
 
 }
